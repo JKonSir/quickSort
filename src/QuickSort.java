@@ -12,8 +12,15 @@ public class QuickSort
 
     private int permutation(int[] arraySort, int left, int right, Comparator comparator)
     {
-        int pivotIndex = left + (left + right) / 2;
-        int pivot = arraySort[pivotIndex];
+        int pivotIndex = left + (right - left) / 2;
+        int pivot = 0;
+        try
+        {
+            pivot = arraySort[pivotIndex];
+        } catch (ArrayIndexOutOfBoundsException ex)
+        {
+            System.out.println();
+        }
 
         swap(arraySort, right, pivotIndex);
 

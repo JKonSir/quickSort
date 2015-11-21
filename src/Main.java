@@ -1,4 +1,7 @@
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.Random;
 
 public class Main
@@ -7,20 +10,25 @@ public class Main
 
     public static void main(String[] args)
     {
-        int arraySize = 10;
+        int arraySize = 100;
         int[] array = new int[arraySize];
 
         for (int i = 0; i < arraySize; i++)
         {
-            array[i] = RANDOM.nextInt(20);
+            int tmp = RANDOM.nextInt(i + 1);
+
+            array[i] = tmp;
             System.out.println(array[i]);
         }
-        System.out.println(array.toString());
+        System.out.println("\n");
 
         QuickSort quickSort = new QuickSort();
         Comparator comparator = getComparator();
         quickSort.sort(array, arraySize, comparator);
-        System.out.println(array);
+        for (int i = 0; i < arraySize; i++)
+        {
+            System.out.println(array[i]);
+        }
     }
 
     private static Comparator getComparator()
