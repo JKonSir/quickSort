@@ -1,32 +1,26 @@
+import java.util.ArrayList;
 import java.util.Comparator;
 
-public class QuickSort
+public class QuickSort<T extends Number>
 {
-    private void swap(int[] arraySort, int i, int j)
+    private void swap(ArrayList<T> arraySort, int i, int j)
     {
-        int tmp;
-        tmp = arraySort[i];
-        arraySort[i] = arraySort[j];
-        arraySort[j] = tmp;
+        T tmp;
+        tmp = arraySort.get(i);
+        arraySort.set(i, arraySort.get(j));
+        arraySort.set(j, tmp);
     }
 
-    private int permutation(int[] arraySort, int left, int right, Comparator comparator)
+    private int permutation(ArrayList<T> arraySort, int left, int right, Comparator comparator)
     {
         int pivotIndex = left + (right - left) / 2;
-        int pivot = 0;
-        try
-        {
-            pivot = arraySort[pivotIndex];
-        } catch (ArrayIndexOutOfBoundsException ex)
-        {
-            System.out.println();
-        }
+        T pivot = arraySort.get(pivotIndex);
 
         swap(arraySort, right, pivotIndex);
 
         for (int i = pivotIndex = left; i < right; ++i)
         {
-            if (comparator.compare(arraySort[i], pivot) <= 0)
+            if (comparator.compare(arraySort.get(i), pivot) <= 0)
             {
                 swap(arraySort, i, pivotIndex++);
             }
@@ -36,7 +30,7 @@ public class QuickSort
         return pivotIndex;
     }
 
-    private void quickSort(int[] arraySort, int left, int right, Comparator comparator)
+    private void quickSort(ArrayList<T> arraySort, int left, int right, Comparator comparator)
     {
         if (right > left)
         {
@@ -47,8 +41,27 @@ public class QuickSort
         }
     }
 
-    public void sort(int[] arraySort, int arraySize, Comparator comparator)
+    public void sort(ArrayList<T> arraySort, int arraySize, Comparator comparator)
     {
         quickSort(arraySort, 0, arraySize - 1, comparator);
+    }
+
+    public Comparator<? extends T> getComparator()
+    {
+        return new Comparator<T>()
+        {
+            @Override
+            public int compare(Number o1, Number o2)
+            {
+                if (o1.doubleValue() > o2.doubleValue())
+                {
+                    return -1;
+                } else if (o1.doubleValue() < o2.doubleValue())
+                {
+                    return 1;
+                }
+                return 0;
+            }
+        };
     }
 }
